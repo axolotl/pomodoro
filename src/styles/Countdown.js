@@ -9,5 +9,5 @@ export const Countdown = styled.p`
 `;
 
 export const ActivatedCountdown = Countdown.extend`
-  background-color: #ffe2e5;
+  background-color: #ff7f7f;
 `;

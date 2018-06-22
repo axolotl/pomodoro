@@ -1,9 +1,10 @@
 import React from 'react';
 
 // import styles
-import Text from './styles/Text';
+import Text, { BoldText } from './styles/Text';
 import { Box } from './styles/Containers';
 import { Countdown, ActivatedCountdown } from './styles/Countdown';
+import ModeText from './styles/ModeText';
 
 const PadZeros = num => {
   while (num.length < 2) {
@@ -12,14 +13,14 @@ const PadZeros = num => {
   return num;
 };
 
-const Timer = ({ timeRemaining, timerChangedAnimation, status }) => {
+const Timer = ({ timeRemaining, timerChangedAnimation, status, mode }) => {
   const minutes = PadZeros(Math.floor(timeRemaining / 60).toString());
   const seconds = PadZeros((timeRemaining % 60).toString());
 
   return (
     <Box>
-      <Text>Countdown is:</Text>
-      <Text style={{ fontWeight: 'bold' }} >{status}</Text>
+      <Text><ModeText>{mode}</ModeText> timer is:</Text>
+      <BoldText>{status}</BoldText>
 
       {timerChangedAnimation === true ? (
         <ActivatedCountdown>

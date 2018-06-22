@@ -6,33 +6,86 @@ import Decrement from './icons/Decrement';
 
 // import styles
 import Time from './styles/Time';
-import Text from './styles/Text';
-import { TimeColumn, TimeColumnsWrapper } from './styles/Containers';
+import Text, { BoldText } from './styles/Text';
+import {
+  TimeColumnsWrapper,
+  Box,
+  BoxVertical,
+  TimerBox
+} from './styles/Containers';
+import Button, { ModeButtonSelected } from './styles/Button';
 
 class AdjustTime extends Component {
   render() {
     const { minutes, seconds } = this.props.selection;
-    const { adjust } = this.props;
+    const { workFor, breakFor, setMode, adjust, mode } = this.props;
 
     return (
       <div>
-        <Text>Adjust minutes and seconds</Text>
+        <Text>
+          Adjust minutes and seconds. Click on Work or Break to select mode.
+        </Text>
+
         <TimeColumnsWrapper>
-          <TimeColumn>
-            <Increment onClick={() => adjust('minutes', 'up')} />
-            <Time>{minutes}</Time>
-            <Decrement onClick={() => adjust('minutes', 'down')} />
-          </TimeColumn>
+          <TimerBox>
+            {mode === 'Work' ? (
+              <ModeButtonSelected onClick={() => setMode('Work')}>
+                <BoldText>Work</BoldText>
+              </ModeButtonSelected>
+            ) : (
+              <Button onClick={() => setMode('Work')}>
+                <BoldText>Work</BoldText>
+              </Button>
+            )}
 
-          <TimeColumn>
-            <Time>:</Time>
-          </TimeColumn>
+            <BoxVertical>
+              <Box>
+                <Increment onClick={() => adjust('workFor', 'minutes', 'up')} />
+                <Time>{workFor.minutes}</Time>
+                <Decrement onClick={() => adjust('workFor', 'minutes', 'down')} />
+              </Box>
 
-          <TimeColumn>
-            <Increment onClick={() => adjust('seconds', 'up')} />
-            <Time>{seconds}</Time>
-            <Decrement onClick={() => adjust('seconds', 'down')} />
-          </TimeColumn>
+              <Box>
+                <Time>:</Time>
+              </Box>
+
+              <Box>
+                <Increment onClick={() => adjust('workFor', 'seconds', 'up')} />
+                <Time>{workFor.seconds}</Time>
+                <Decrement onClick={() => adjust('workFor', 'seconds', 'down')} />
+              </Box>
+            </BoxVertical>
+          </TimerBox>
+
+          <TimerBox>
+            {mode === 'Break' ? (
+              <ModeButtonSelected onClick={() => setMode('Break')}>
+                <BoldText>Break</BoldText>
+              </ModeButtonSelected>
+            ) : (
+              <Button onClick={() => setMode('Break')}>
+                <BoldText>Break</BoldText>
+              </Button>
+            )}
+
+            <BoxVertical>
+              <Box>
+                <Increment onClick={() => adjust('breakFor', 'minutes', 'up')} />
+                <Time>{breakFor.minutes}</Time>
+                <Decrement onClick={() => adjust('breakFor', 'minutes', 'down')} />
+              </Box>
+
+              <Box>
+                <Time>:</Time>
+              </Box>
+
+              <Box>
+                <Increment onClick={() => adjust('breakFor', 'seconds', 'up')} />
+                <Time>{breakFor.seconds}</Time>
+                <Decrement onClick={() => adjust('breakFor', 'seconds', 'down')} />
+              </Box>
+            </BoxVertical>
+          </TimerBox>
         </TimeColumnsWrapper>
       </div>
     );

@@ -23,16 +23,29 @@ class App extends Component {
       minutes: 25,
       seconds: 0
     },
+    workFor: {
+      minutes: 25,
+      seconds: 0
+    },
+    breakFor: {
+      minutes: 5,
+      seconds: 0
+    },
     timeRemaining: 1500,
     timerChangedAnimation: false,
-    status: 'ready to start'
+    status: 'ready to start',
+    mode: 'Work'
   };
 
-  adjust = (item, operation) => {
-    const { [item]: current } = this.state.selection;
+  adjust = (mode, item, operation) => {
+    // const { [mode]: selection } = this.state;
+    // console.log(selection)
+
+    const { [item]: current } = this.state[mode];
+    console.log(current)
     let { timeRemaining } = this.state;
-    const selection = {
-      ...this.state.selection,
+    const newState = {
+      ...this.state[mode],
       [item]:
         operation === 'up'
           ? current === 59
@@ -42,10 +55,11 @@ class App extends Component {
             ? 0
             : current - 1
     };
-    if (this.state.status === 'ready to start') {
-      timeRemaining = selection.minutes * 60 + selection.seconds;
-    }
-    this.setState({ selection, timeRemaining });
+    // if (this.state.status === 'ready to start') {
+    //   timeRemaining = selection.minutes * 60 + selection.seconds;
+    // }
+    console.log(newState)
+    this.setState({ [mode]: newState, timeRemaining });
   };
 
   interval = () => {
@@ -60,7 +74,7 @@ class App extends Component {
 
   animateChangeTimer = () => {
     this.setState({ timerChangedAnimation: true });
-    setTimeout(() => this.setState({ timerChangedAnimation: false }), 200);
+    setTimeout(() => this.setState({ timerChangedAnimation: false }), 150);
   };
 
   start = () => {
@@ -89,24 +103,39 @@ class App extends Component {
     });
   };
 
+  setMode = mode => {
+    this.setState({ mode });
+  };
+
   render() {
     const {
       selection,
+      workFor,
+      breakFor,
       timeRemaining,
       timerChangedAnimation,
-      status
+      status,
+      mode
     } = this.state;
-    const { adjust, start, pause, reset } = this;
+    const { adjust, start, pause, reset, setMode } = this;
 
     return (
       <Align>
         <Title>Pomodoro Clock</Title>
-        <AdjustTime adjust={adjust} selection={selection} />
+        <AdjustTime
+          adjust={adjust}
+          selection={selection}
+          workFor={workFor}
+          breakFor={breakFor}
+          mode={mode}
+          setMode={setMode}
+        />
         <Controls start={start} pause={pause} reset={reset} />
         <Timer
           timeRemaining={timeRemaining}
           timerChangedAnimation={timerChangedAnimation}
           status={status}
+          mode={mode}
         />
       </Align>
     );

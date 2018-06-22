@@ -15,16 +15,19 @@ export const TimeColumnsWrapper = styled.div`
   justify-content: center;
 `;
 
-export const TimeColumn = styled.div`
+export const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-export const Box = styled.div`
+export const BoxVertical = Box.extend`
+  flex-direction: row;
+`;
+
+export const TimerBox = styled.div`
+  margin: 0 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
