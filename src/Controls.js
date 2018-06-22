@@ -5,13 +5,13 @@ import Start from './icons/Start';
 import Pause from './icons/Pause';
 import Restart from './icons/Restart';
 
-const Controls = time => (
+const Controls = ({ start, pause, restart }) => (
   <Box>
     <Text>Select start, pause, or restart</Text>
     <div>
-      <Start />
-      <Pause />
-      <Restart />
+      <Start onClick={start} />
+      <Pause onClick={pause} />
+      <Restart onClick={restart} />
     </div>
   </Box>
 );

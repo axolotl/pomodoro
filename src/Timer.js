@@ -13,7 +13,7 @@ const PadZeros = num => {
 };
 
 const Timer = ({ timeRemaining }) => {
-  const minutes = PadZeros((Math.floor(timeRemaining) / 60).toString());
+  const minutes = PadZeros(Math.floor(timeRemaining / 60).toString());
   const seconds = PadZeros((timeRemaining % 60).toString());
 
   return (
