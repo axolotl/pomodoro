@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Countdown = styled.p`
+export const Countdown = styled.p`
   margin: 20px;
   font-size: 56px;
   padding: 20px;
@@ -8,4 +8,6 @@ const Countdown = styled.p`
   border-radius: 4px;
 `;
 
-export default Countdown;
+export const ActivatedCountdown = Countdown.extend`
+  background-color: #ffe2e5;
+`;

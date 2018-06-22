@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../styles/Button';
 
-const Restart = ({ onClick }) => (
+const Reset = ({ onClick }) => (
   <Button>
     <svg
       onClick={onClick}
@@ -16,4 +16,4 @@ const Restart = ({ onClick }) => (
   </Button>
 );
 
-export default Restart;
+export default Reset;
