@@ -18,7 +18,8 @@ const Timer = ({ timeRemaining, timerChangedAnimation, status }) => {
 
   return (
     <Box>
-      <Text>Time Remaining</Text>
+      <Text>Countdown is:</Text>
+      <Text style={{ fontWeight: 'bold' }} >{status}</Text>
 
       {timerChangedAnimation === true ? (
         <ActivatedCountdown>
@@ -29,9 +30,6 @@ const Timer = ({ timeRemaining, timerChangedAnimation, status }) => {
           {minutes} : {seconds}
         </Countdown>
       )}
-
-      <Text style={{ marginBottom: 0 }} >Countdown is</Text>
-      <Text>{status}</Text>
     </Box>
   );
 };

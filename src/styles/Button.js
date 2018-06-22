@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  margin: 5px;
+  margin: 0;
   display: inline-block;
   border: none;
   text-decoration: none;

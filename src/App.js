@@ -48,8 +48,15 @@ class App extends Component {
     this.setState({ selection, timeRemaining });
   };
 
-  interval = () =>
-    this.setState({ timeRemaining: this.state.timeRemaining - 1 });
+  interval = () => {
+    const { timeRemaining } = this.state;
+    if (timeRemaining > 0) {
+      this.setState({ timeRemaining: timeRemaining - 1 });
+    } else {
+      clearInterval(this.countdown);
+      this.setState({ status: 'ready to start' });
+    }
+  };
 
   animateChangeTimer = () => {
     this.setState({ timerChangedAnimation: true });
@@ -58,8 +65,10 @@ class App extends Component {
 
   start = () => {
     this.animateChangeTimer();
-    this.countdown = setInterval(() => this.interval(), 1000);
-    this.setState({ status: 'active' });
+    if (this.state.status !== 'active') {
+      this.countdown = setInterval(() => this.interval(), 1000);
+      this.setState({ status: 'active' });
+    }
   };
 
   pause = () => {
