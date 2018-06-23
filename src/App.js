@@ -19,10 +19,6 @@ injectGlobal`
 
 class App extends Component {
   state = {
-    selection: {
-      minutes: 25,
-      seconds: 0
-    },
     workFor: {
       minutes: 25,
       seconds: 0
@@ -38,11 +34,7 @@ class App extends Component {
   };
 
   adjust = (mode, item, operation) => {
-    // const { [mode]: selection } = this.state;
-    // console.log(selection)
-
     const { [item]: current } = this.state[mode];
-    console.log(current)
     let { timeRemaining } = this.state;
     const newState = {
       ...this.state[mode],
@@ -55,10 +47,14 @@ class App extends Component {
             ? 0
             : current - 1
     };
-    // if (this.state.status === 'ready to start') {
-    //   timeRemaining = selection.minutes * 60 + selection.seconds;
-    // }
-    console.log(newState)
+    if (
+      this.state.status === 'ready to start' &&
+      ((mode === 'workFor' && this.state.mode === 'Work') ||
+        (mode === 'breakFor' && this.state.mode === 'Break'))
+    ) {
+      timeRemaining = newState.minutes * 60 + newState.seconds;
+    }
+
     this.setState({ [mode]: newState, timeRemaining });
   };
 
@@ -94,9 +90,18 @@ class App extends Component {
   };
 
   reset = () => {
-    const { minutes, seconds } = this.state.selection;
     clearInterval(this.countdown);
     this.animateChangeTimer();
+
+    let minutes, seconds;
+    if (this.state.mode === 'Work') {
+      minutes = this.state.workFor.minutes;
+      seconds = this.state.workFor.seconds;
+    } else if (this.state.mode === 'Break') {
+      minutes = this.state.breakFor.minutes;
+      seconds = this.state.breakFor.seconds;
+    }
+
     this.setState({
       timeRemaining: minutes * 60 + seconds,
       status: 'ready to start'
@@ -104,12 +109,22 @@ class App extends Component {
   };
 
   setMode = mode => {
-    this.setState({ mode });
+    const { workFor, breakFor } = this.state;
+    if (mode === 'Work') {
+      this.setState({
+        mode,
+        timeRemaining: workFor.minutes * 60 + workFor.seconds
+      });
+    } else if (mode === 'Break') {
+      this.setState({
+        mode,
+        timeRemaining: breakFor.minutes * 60 + breakFor.seconds
+      });
+    }
   };
 
   render() {
     const {
-      selection,
       workFor,
       breakFor,
       timeRemaining,
@@ -124,7 +139,6 @@ class App extends Component {
         <Title>Pomodoro Clock</Title>
         <AdjustTime
           adjust={adjust}
-          selection={selection}
           workFor={workFor}
           breakFor={breakFor}
           mode={mode}

@@ -17,7 +17,6 @@ import Button, { ModeButtonSelected } from './styles/Button';
 
 class AdjustTime extends Component {
   render() {
-    const { minutes, seconds } = this.props.selection;
     const { workFor, breakFor, setMode, adjust, mode } = this.props;
 
     return (
