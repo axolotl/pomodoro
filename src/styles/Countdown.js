@@ -6,8 +6,10 @@ export const Countdown = styled.p`
   padding: 15px;
   border: 1px solid #515151;
   border-radius: 4px;
-`;
 
-export const ActivatedCountdown = Countdown.extend`
-  background-color: #ff7f7f;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: ${props => props.animate ? '#ff4f4f' : 'white'};
 `;

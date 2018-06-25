@@ -3,7 +3,7 @@ import React from 'react';
 // import styles
 import Text, { BoldText } from './styles/Text';
 import { Box } from './styles/Containers';
-import { Countdown, ActivatedCountdown } from './styles/Countdown';
+import { Countdown } from './styles/Countdown';
 import ModeText from './styles/ModeText';
 
 const PadZeros = num => {
@@ -19,18 +19,14 @@ const Timer = ({ timeRemaining, timerChangedAnimation, status, mode }) => {
 
   return (
     <Box>
-      <Text><ModeText>{mode}</ModeText> timer is:</Text>
+      <Text>
+        <ModeText>{mode}</ModeText> timer is:
+      </Text>
       <BoldText>{status}</BoldText>
 
-      {timerChangedAnimation === true ? (
-        <ActivatedCountdown>
-          {minutes} : {seconds}
-        </ActivatedCountdown>
-      ) : (
-        <Countdown>
-          {minutes} : {seconds}
-        </Countdown>
-      )}
+      <Countdown animate={timerChangedAnimation ? 'animate' : ''}>
+        {minutes} : {seconds}
+      </Countdown>
     </Box>
   );
 };

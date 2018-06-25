@@ -109,16 +109,21 @@ class App extends Component {
   };
 
   setMode = mode => {
+    clearInterval(this.countdown);
+    this.animateChangeTimer();
+
     const { workFor, breakFor } = this.state;
     if (mode === 'Work') {
       this.setState({
         mode,
-        timeRemaining: workFor.minutes * 60 + workFor.seconds
+        timeRemaining: workFor.minutes * 60 + workFor.seconds,
+        status: 'ready to start',
       });
     } else if (mode === 'Break') {
       this.setState({
         mode,
-        timeRemaining: breakFor.minutes * 60 + breakFor.seconds
+        timeRemaining: breakFor.minutes * 60 + breakFor.seconds,
+        status: 'ready to start',
       });
     }
   };
